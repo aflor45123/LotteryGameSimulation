@@ -167,6 +167,7 @@ public class WelcomeController{
     public void onShowMatch() {
         // swap to the game scene registered by ViewFactory
     	sceneManager.show("game");
+    	
     }
 
     public void onExit() {
