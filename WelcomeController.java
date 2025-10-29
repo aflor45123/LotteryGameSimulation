@@ -35,6 +35,8 @@ public class WelcomeController{
     private final SceneManager sceneManager;
     private final KenoGame game;
     
+    private final StackPane stackPane1;
+    
     
     public WelcomeController(SceneManager sceneManager, KenoGame game) {
         this.sceneManager = sceneManager;
@@ -66,7 +68,7 @@ public class WelcomeController{
      	rect.setArcHeight(50);
      	rect.setArcWidth(50);
      		
-     	StackPane stackPane1 = new StackPane();
+     	stackPane1 = new StackPane();
      	stackPane1.getChildren().addAll(rect, welcomeText);
      	
      	
@@ -95,18 +97,29 @@ public class WelcomeController{
 
     // --- public methods per UML ---
     public void onShowRules() {
-        // stub: show a dialog, scene, or open a web page
+       
+    	// Header
     	Text RulesSign = new Text("Game Rules");
     	RulesSign.setFont(new Font(25));
     	
+    	// Description
+    	Text DescriptRules = new Text(
+    			"As a player, you can only select the number\n "
+    			+ "of spots you want at the beginning of the\n"
+    			+ "match. This also applies to the number of\n"
+    			+ "draws you want. You will not be able to\n"
+    			+ "make any changes once the draw begins.\n\n\n\n\n\n");
+    	DescriptRules.setFont(new Font(15));
     	
+    	// Backdrop
     	Rectangle rectRules = new Rectangle(300, 400);
     	rectRules.setFill(Color.ORANGE);
     	rectRules.setArcHeight(50);
     	rectRules.setArcWidth(50);
     	
+    	// Align Header, Description, and Backdrop
     	StackPane stackPane2 = new StackPane();
-    	stackPane2.getChildren().addAll(rectRules, RulesSign);
+    	stackPane2.getChildren().addAll(rectRules, RulesSign, DescriptRules);
     	StackPane.setAlignment(RulesSign, Pos.CENTER);
     	RulesSign.setTranslateY(-180);
     	
@@ -115,36 +128,58 @@ public class WelcomeController{
     }
 
     public void onShowOdds() {
+    	
+    	// Header
     	Text RulesSign = new Text("Winning Odds");
     	RulesSign.setFont(new Font(25));
     	
+    	// Description
+    	Text DescriptOdds = new Text(
+    			"Winning odds increase if you choose\n"
+    			+ "more spots on your bet card and if you\n"
+    			+ "do more than one draw. There are 80 spots\n"
+    			+ "on the bet card. If you are choosing to do\n"
+    			+ "one draw, your odds of winning are shown\n"
+    			+ "below:\n"
+    			+ "\n"
+    			+ "                    1 spot = 0.125%\r\n"
+    			+ "                    4 spot = 0.5%\r\n"
+    			+ "                    8 spot = 1%\r\n"
+    			+ "                    10 spot = 1.25%");
+    	DescriptOdds.setFont(new Font(15));
     	
+    	// Backdrop
     	Rectangle rectRules = new Rectangle(300, 400);
     	rectRules.setFill(Color.ORANGE);
     	rectRules.setArcHeight(50);
     	rectRules.setArcWidth(50);
     	
+    	// Align Header, Description, and Backdrop
     	StackPane stackPane2 = new StackPane();
-    	stackPane2.getChildren().addAll(rectRules, RulesSign);
+    	stackPane2.getChildren().addAll(rectRules, RulesSign, DescriptOdds);
     	StackPane.setAlignment(RulesSign, Pos.CENTER);
     	RulesSign.setTranslateY(-180);
     	
-    	
+  
     	layout.setCenter(stackPane2);
     }
     
     public void onShowMatch() {
-    	// Will transition to the next scene
+        // swap to the game scene registered by ViewFactory
+    	sceneManager.show("game");
     }
 
     public void onExit() {
         // close the app window
-        layout.getScene().getWindow().hide();
+        //layout.getScene().getWindow().hide();
+		layout.setCenter(stackPane1);
+
+    	
     }
 
-    public void onStartGame() {
+    /*public void onStartGame() {
         // swap to the game scene registered by ViewFactory
         sceneManager.show("game");
-    }
+    }*/
 	
 }
