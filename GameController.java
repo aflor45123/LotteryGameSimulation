@@ -43,6 +43,7 @@ public class GameController {
 	private VBox components;
 	private Text spotQuest;
 	private Text drawQuest;
+	private Text DescriptResult;
 	private static final int ROWS = 8;
 	private static final int COLS = 10;
 	
@@ -151,9 +152,44 @@ public class GameController {
         
 		
 		
+        
+        
+        
+        
 		HBox centeredGrid = new HBox(10);
 		centeredGrid.getChildren().addAll(grid);
 		centeredGrid.setAlignment(Pos.CENTER);
+		
+		
+		
+		 // Header
+	 	Text ResultSign1 = new Text("Wins");
+	    ResultSign1.setFont(new Font(25));
+	    
+	    
+    	
+    	// Backdrop
+    	Rectangle rectResult1 = new Rectangle(200, 400);
+    	rectResult1.setFill(Color.ORANGE);
+    	rectResult1.setArcHeight(50);
+    	rectResult1.setArcWidth(50);
+    	
+    	
+    	StackPane LeftPane = new StackPane();
+		LeftPane.getChildren().addAll(rectResult1, ResultSign1);
+		StackPane.setAlignment(ResultSign1, Pos.CENTER_LEFT);
+		ResultSign1.setTranslateY(-180);
+		ResultSign1.setTranslateX(80);
+		StackPane.setAlignment(rectResult1, Pos.CENTER_LEFT);
+		rectResult1.setTranslateX(10);
+    	
+    	
+		
+		
+    	
+    	
+		
+		
 		
 		
 		// Vertically space out all components
@@ -161,11 +197,15 @@ public class GameController {
 		components.getChildren().addAll(spotQuestChoices, drawQuestChoices, centeredGrid);
 		
 		
-		
+
 		// Center all components
 		stackPane2 = new StackPane();
 		stackPane2.getChildren().addAll(rect, components);
 		stackPane2.setAlignment(Pos.TOP_CENTER);
+		
+		
+		
+		
 		
 		
 		// wire menu actions
@@ -173,14 +213,14 @@ public class GameController {
         menuItemOdds.setOnAction(e -> onShowOdds());
         menuItemMatch.setOnAction(e -> onShowMatch());
         menuItemExit.setOnAction(e -> onExit());
-        //menuItemLook.setOnAction(e -> onShowLook());
-        menuItemLook.setOnAction(e -> showResult());
+        menuItemLook.setOnAction(e -> onShowLook());
 
 		
 		// Set layout components
 		layout = new BorderPane();
 		layout.setTop(centeredMenu);
 		layout.setCenter(stackPane2);
+		layout.setLeft(LeftPane);
 		layout.setPrefSize(900, 600);
 		layout.setBackground(new Background (new BackgroundFill(
 				Color.PURPLE,
@@ -229,6 +269,7 @@ public class GameController {
     	// Header
     	Text RulesSign = new Text("Game Rules");
     	RulesSign.setFont(new Font(25));
+    	
     	
     	// Description
     	Text DescriptRules = new Text(
@@ -508,8 +549,44 @@ public class GameController {
 	    // Example: count hits; you can add payout logic here later
 	    int hits = 0;
 	    for (int n : drawn) if (selectedNumbers.contains(n)) hits++;
+	    
+	    
+	    
+	    
+	    // Header
+	 	Text ResultSign = new Text("Wins");
+	    ResultSign.setFont(new Font(25));
+	    
+	    
+	    // Description for wins
+    	DescriptResult = new Text("Drawing " + drawsCompleted + " finished. Hits: " + hits + "\n");
+    	DescriptResult.setFont(new Font(15));
+    	
+    	
+    	// Backdrop
+    	Rectangle rectResult = new Rectangle(200, 400);
+    	rectResult.setFill(Color.ORANGE);
+    	rectResult.setArcHeight(50);
+    	rectResult.setArcWidth(50);
+    	
+    	
+    	
+    	StackPane stackPane3 = new StackPane();
+		stackPane3.getChildren().addAll(rectResult, ResultSign, DescriptResult);
+		StackPane.setAlignment(ResultSign, Pos.CENTER_LEFT);
+		ResultSign.setTranslateY(-180);
+		ResultSign.setTranslateX(80);
+		StackPane.setAlignment(rectResult, Pos.CENTER_LEFT);
+		rectResult.setTranslateX(10);
+    	StackPane.setAlignment(DescriptResult, Pos.CENTER_LEFT);
+    	DescriptResult.setTranslateX(10);
+		layout.setLeft(stackPane3);
 
-	    System.out.println("Drawing " + drawsCompleted + " finished. Hits: " + hits);
+    	
+
+		
+		
+	    //System.out.println("Drawing " + drawsCompleted + " finished. Hits: " + hits);
 	    b10.setText("Next Draw!");
 	    b10.setDisable(false);
 	   
@@ -534,7 +611,8 @@ public class GameController {
 	}
 	
 	
-	public void showResult() {
+	/*public void showResult() {
+		
 		// Header
     	Text ResultSign = new Text("Wins");
     	ResultSign.setFont(new Font(25));
@@ -544,16 +622,10 @@ public class GameController {
     	Text DescriptResult = new Text(
     			"Draw #: ");
     	DescriptResult.setFont(new Font(15));
-    	
-    
-    	// Continue button
-    	Button backToWelcome = new Button("Continue");
-    	backToWelcome.setFont(new Font(20));
-    	backToWelcome.setMinSize(100, 40);
-    	
+    	    	
     	
 		// Backdrop
-    	Rectangle rectResult = new Rectangle(400, 400);
+    	Rectangle rectResult = new Rectangle(200, 400);
     	rectResult.setFill(Color.ORANGE);
     	rectResult.setArcHeight(50);
     	rectResult.setArcWidth(50);
@@ -561,15 +633,11 @@ public class GameController {
     	
     	// Align Header, Description, and Backdrop
     	StackPane stackPane2 = new StackPane();
-    	stackPane2.getChildren().addAll(rectResult, ResultSign, DescriptResult, backToWelcome);
-    	StackPane.setAlignment(ResultSign, Pos.CENTER);
+    	stackPane2.getChildren().addAll(rectResult, ResultSign, DescriptResult);
+    	StackPane.setAlignment(ResultSign, Pos.CENTER_LEFT);
     	ResultSign.setTranslateY(-180);
-    	StackPane.setAlignment(backToWelcome, Pos.BOTTOM_CENTER);
-    	backToWelcome.setTranslateY(-30);
-    	
-        backToWelcome.setOnAction(e -> onExit());
-    	layout.setCenter(stackPane2);
-}
+    	layout.setLeft(stackPane2);
+	}*/
 	
 
 	
