@@ -33,7 +33,6 @@ public class WelcomeController{
     
     private final SceneManager sceneManager;
     private final KenoGame game;
-    
     private final StackPane stackPane1;
     
     
@@ -42,17 +41,21 @@ public class WelcomeController{
         this.game = game;
 
         
-        // Set menu options
+        // Set menuBar
         menuBar = new MenuBar();
         menu = new Menu("Menu");
         
+        
+        // Set menuItems
         menuItemRules = new MenuItem("Game Rules");
         menuItemOdds  = new MenuItem("Winning Odds");
         menuItemMatch = new MenuItem("Play a Match");
         menuItemExit  = new MenuItem("Exit");
         menu.getItems().addAll(menuItemRules, menuItemOdds, menuItemMatch, menuItemExit);
         menuBar.getMenus().add(menu);
-
+        
+        
+        // Center menuBar
         centeredMenu = new HBox(menuBar);
         centeredMenu.setAlignment(Pos.CENTER);
         
@@ -66,12 +69,14 @@ public class WelcomeController{
      	rect.setFill(Color.BLACK);
      	rect.setArcHeight(50);
      	rect.setArcWidth(50);
-     		
+     	
+     	
+     	// Allow text and shape overlay
      	stackPane1 = new StackPane();
      	stackPane1.getChildren().addAll(rect, welcomeText);
      	
      	
-     	// wire menu actions
+     	// Wire menu actions
         menuItemRules.setOnAction(e -> onShowRules());
         menuItemOdds.setOnAction(e -> onShowOdds());
         menuItemMatch.setOnAction(e -> onShowMatch());
@@ -90,16 +95,18 @@ public class WelcomeController{
 				)));
     }
 
+    
     public Parent getRoot() {
         return layout;
     }
 
+    
     // --- public methods per UML ---
     public void onShowRules() {
-       
     	// Header
     	Text RulesSign = new Text("Game Rules");
     	RulesSign.setFont(new Font(25));
+    	
     	
     	// Description
     	Text DescriptRules = new Text(
@@ -110,27 +117,33 @@ public class WelcomeController{
     			+ "make any changes once the draw begins.\n\n\n\n\n\n");
     	DescriptRules.setFont(new Font(15));
     	
-    	// Backdrop
+    	
+    	// Set background shape
     	Rectangle rectRules = new Rectangle(300, 400);
     	rectRules.setFill(Color.ORANGE);
     	rectRules.setArcHeight(50);
     	rectRules.setArcWidth(50);
     	
-    	// Align Header, Description, and Backdrop
+    	
+    	// Allow text and shape overlay
     	StackPane stackPane2 = new StackPane();
     	stackPane2.getChildren().addAll(rectRules, RulesSign, DescriptRules);
     	StackPane.setAlignment(RulesSign, Pos.CENTER);
     	RulesSign.setTranslateY(-180);
     	
     	
+    	// Set layout component
     	layout.setCenter(stackPane2);
     }
 
+    
     public void onShowOdds() {
+    	
     	
     	// Header
     	Text RulesSign = new Text("Winning Odds");
     	RulesSign.setFont(new Font(25));
+    	
     	
     	// Description
     	Text DescriptOdds = new Text(
@@ -147,30 +160,35 @@ public class WelcomeController{
     			+ "                    10 spot = 1.25%");
     	DescriptOdds.setFont(new Font(15));
     	
-    	// Backdrop
+    	
+    	// Set background shape
     	Rectangle rectRules = new Rectangle(300, 400);
     	rectRules.setFill(Color.ORANGE);
     	rectRules.setArcHeight(50);
     	rectRules.setArcWidth(50);
     	
-    	// Align Header, Description, and Backdrop
+    	
+    	// Allow text and shape overlay
     	StackPane stackPane2 = new StackPane();
     	stackPane2.getChildren().addAll(rectRules, RulesSign, DescriptOdds);
     	StackPane.setAlignment(RulesSign, Pos.CENTER);
     	RulesSign.setTranslateY(-180);
     	
-  
+    	
+    	// Set layout component
     	layout.setCenter(stackPane2);
     }
     
+    
     public void onShowMatch() {
-        // swap to the game scene registered by ViewFactory
+        // Swap to the game scene registered by ViewFactory
     	sceneManager.show("game");
     	
     }
 
+    
     public void onExit() {
-        // close the app window
+        // Layout reverts back to welcome screen 
 		layout.setCenter(stackPane1);
     }
 

@@ -173,7 +173,9 @@ public class GameController {
         menuItemOdds.setOnAction(e -> onShowOdds());
         menuItemMatch.setOnAction(e -> onShowMatch());
         menuItemExit.setOnAction(e -> onExit());
-        menuItemLook.setOnAction(e -> onShowLook());
+        //menuItemLook.setOnAction(e -> onShowLook());
+        menuItemLook.setOnAction(e -> showResult());
+
 		
 		// Set layout components
 		layout = new BorderPane();
@@ -318,14 +320,11 @@ public class GameController {
 	public void onShowLook() {
 		
 		// Set layout components
-		BorderPane layout2 = new BorderPane();
-		layout2.setPrefSize(900, 600);
-		layout2.setBackground(new Background (new BackgroundFill(
-				Color.GREEN,
+		layout.setBackground(new Background (new BackgroundFill(
+				Color.BLUE,
 				CornerRadii.EMPTY,
 				Insets.EMPTY
 				)));
-		
 	}
 	
 	public void enableCard() {
@@ -533,8 +532,44 @@ public class GameController {
 	    b1.setDisable(false); b2.setDisable(false); b3.setDisable(false); b4.setDisable(false);
 	    b6.setDisable(false); b7.setDisable(false); b8.setDisable(false); b9.setDisable(false);
 	}
+	
+	
 	public void showResult() {
-	}
+		// Header
+    	Text ResultSign = new Text("Wins");
+    	ResultSign.setFont(new Font(25));
+    	
+    	
+    	// Description
+    	Text DescriptResult = new Text(
+    			"Draw #: ");
+    	DescriptResult.setFont(new Font(15));
+    	
+    
+    	// Continue button
+    	Button backToWelcome = new Button("Continue");
+    	backToWelcome.setFont(new Font(20));
+    	backToWelcome.setMinSize(100, 40);
+    	
+    	
+		// Backdrop
+    	Rectangle rectResult = new Rectangle(400, 400);
+    	rectResult.setFill(Color.ORANGE);
+    	rectResult.setArcHeight(50);
+    	rectResult.setArcWidth(50);
+    	
+    	
+    	// Align Header, Description, and Backdrop
+    	StackPane stackPane2 = new StackPane();
+    	stackPane2.getChildren().addAll(rectResult, ResultSign, DescriptResult, backToWelcome);
+    	StackPane.setAlignment(ResultSign, Pos.CENTER);
+    	ResultSign.setTranslateY(-180);
+    	StackPane.setAlignment(backToWelcome, Pos.BOTTOM_CENTER);
+    	backToWelcome.setTranslateY(-30);
+    	
+        backToWelcome.setOnAction(e -> onExit());
+    	layout.setCenter(stackPane2);
+}
 	
 
 	
