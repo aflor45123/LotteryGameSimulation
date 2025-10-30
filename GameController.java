@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
@@ -50,6 +51,7 @@ public class GameController {
 	private final SceneManager sceneManager;
 	private final KenoGame game;
 	
+	
 	private StackPane stackPane2;
 	
 	private GridPane grid;
@@ -62,6 +64,8 @@ public class GameController {
     
     private int drawsCompleted = 0;
     private final java.util.Random rng = new java.util.Random();
+    
+    private TextArea resultArea;
     
 	
 	public GameController(SceneManager sceneManager, KenoGame game) {
@@ -161,18 +165,25 @@ public class GameController {
 		Text ResultSign1 = new Text("Wins");
 		ResultSign1.setFont(new Font(25));
 
-		// Backdrop
+		// Result area under "Wins"
+		resultArea = new TextArea();
+		resultArea.setEditable(false);          // user can't type
+		resultArea.setWrapText(true);
+		resultArea.setPrefSize(180, 350);       // size to fit your left pane
+		resultArea.setStyle("-fx-control-inner-background: #FFFACD; -fx-font-size: 14;");
+
+		VBox resultBox = new VBox(10, ResultSign1, resultArea);
+		resultBox.setAlignment(Pos.TOP_CENTER);
+		resultBox.setPadding(new Insets(20));
+
+		// Replace old StackPane LeftPane with this cleaner VBox
 		Rectangle rectResult1 = new Rectangle(200, 400);
 		rectResult1.setFill(Color.ORANGE);
 		rectResult1.setArcHeight(50);
 		rectResult1.setArcWidth(50);
-		StackPane LeftPane = new StackPane();
-		LeftPane.getChildren().addAll(rectResult1, ResultSign1);
-		StackPane.setAlignment(ResultSign1, Pos.CENTER_LEFT);
-		ResultSign1.setTranslateY(-180);
-		ResultSign1.setTranslateX(80);
-		StackPane.setAlignment(rectResult1, Pos.CENTER_LEFT);
-		rectResult1.setTranslateX(10);
+
+		StackPane LeftPane = new StackPane(rectResult1, resultBox);
+		
 		
 		
 		// Vertically space out all components
@@ -210,6 +221,7 @@ public class GameController {
 	private void initiateGame() {
 		disableCard();
 		b11.setDisable(true);
+		b10.setDisable(true);
 		b1.setDisable(false); b2.setDisable(false); b3.setDisable(false); b4.setDisable(false);
 		b5.setDisable(false);
 	    b6.setDisable(false); b7.setDisable(false); b8.setDisable(false); b9.setDisable(false);
@@ -344,11 +356,11 @@ public class GameController {
 		
 		// Set layout components
 
-				layout.setBackground(new Background (new BackgroundFill(
-				Color.BLUE,
-				CornerRadii.EMPTY,
-				Insets.EMPTY
-				)));
+		layout.setBackground(new Background (new BackgroundFill(
+		Color.BLUE,
+		CornerRadii.EMPTY,
+		Insets.EMPTY
+		)));
 		
 	}
 	
@@ -413,6 +425,7 @@ public class GameController {
 	        btn.setStyle(""); // reset to default look
 	    } else {
 	        // add if we haven't hit the limit
+	    	
 	        if (selectedNumbers.size() >= spotsChosen) {
 	            //updateStatus("You can only select " + spotsChosen + " numbers.");
 	            return;
@@ -420,6 +433,11 @@ public class GameController {
 	        selectedNumbers.add(n);
 	        btn.setStyle("-fx-background-color: gold; -fx-text-fill: black;");
 	    }
+	    if(selectedNumbers.size() == spotsChosen) {
+    		b10.setDisable(false);
+    	}else {
+    		b10.setDisable(true);
+    	}
 
 	    //updateStatus("Selected: " + selectedNumbers.size() + "/" + spotsChosen);
 	}
@@ -449,6 +467,11 @@ public class GameController {
 	        Button btn = numberBtns[n - 1];
 	        btn.setStyle("-fx-background-color: gold; -fx-text-fill: black;");
 	    }
+	    if(selectedNumbers.size() == spotsChosen) {
+    		b10.setDisable(false);
+    	}else {
+    		b10.setDisable(true);
+    	}
 
 	}
 	private java.util.List<Integer> generateDraw20() {
@@ -535,42 +558,25 @@ public class GameController {
 	    for (int n : drawn) if (selectedNumbers.contains(n)) hits++;
 	    
 	 // Header
-	 	 Text ResultSign = new Text("Wins");
-	 	 ResultSign.setFont(new Font(25));
-	 	    
-	 	    
-	 	    // Description for wins
-	     	DescriptResult = new Text("Drawing " + drawsCompleted + " finished. Hits: " + hits + "\n");
-	     	DescriptResult.setFont(new Font(15));
-	     	
-	     	
-	     	// Backdrop
-	     	Rectangle rectResult = new Rectangle(200, 400);
-	     	rectResult.setFill(Color.ORANGE);
-	     	rectResult.setArcHeight(50);
-	     	rectResult.setArcWidth(50);
-	     	
-	     	
-	     	
-	     	StackPane stackPane3 = new StackPane();
-	 		stackPane3.getChildren().addAll(rectResult, ResultSign, DescriptResult);
-	 		StackPane.setAlignment(ResultSign, Pos.CENTER_LEFT);
-	 		ResultSign.setTranslateY(-180);
-	 		ResultSign.setTranslateX(80);
-	 		StackPane.setAlignment(rectResult, Pos.CENTER_LEFT);
-	 		rectResult.setTranslateX(10);
-	     	StackPane.setAlignment(DescriptResult, Pos.CENTER_LEFT);
-	     	DescriptResult.setTranslateX(10);
-	 		layout.setLeft(stackPane3);	    
-
-	    System.out.println("Drawing " + drawsCompleted + " finished. Hits: " + hits);
+	 	Text ResultSign = new Text("Wins");
+	 	ResultSign.setFont(new Font(25));
+	 	
+	 	resultArea.appendText("Drawing " + drawsCompleted + " finished. Hits: " + hits + "\n");
+	 	
+	 	System.out.println("Drawing " + drawsCompleted + " finished. Hits: " + hits);
+	 	
+	 	if (drawsCompleted >= drawCountChosen) {
+	 		resultArea.appendText("All drawings complete.");
+	        System.out.println("All drawings complete.");
+	        b10.setDisable(true);       // no more draws
+	        b10.setText("Start Draw!"); // ready for next match
+	        b11.setDisable(false);      // allow Reset
+	        drawingStarted = false;     // end drawing state
+	        return;
+	    }
+	 	
 	    b10.setText("Next Draw!");
 	    b10.setDisable(false);
-	   
-	    if (drawsCompleted >= drawCountChosen) {
-	        // all done — allow new match setup
-	        b11.setDisable(false);
-	    }
 	}
 	
 	
@@ -623,6 +629,7 @@ public class GameController {
 
 	    // Start button label
 	    b10.setText("Start Draw!");
+	    b11.setDisable(true);
 
 	}
 	public void showResult() {
