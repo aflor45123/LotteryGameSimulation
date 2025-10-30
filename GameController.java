@@ -169,6 +169,7 @@ public class GameController {
 	
     // --- public methods per UML ---
 	public void onShowRules() {
+
 	       
     	// Header
     	Text RulesSign = new Text("Game Rules");
@@ -238,8 +239,8 @@ public class GameController {
 	
 	public void onShowMatch() {
         // swap to the game scene registered by ViewFactory
-    	sceneManager.show("game");
-    	
+		layout.setTop(centeredMenu);
+		layout.setCenter(stackPane2);
     }
 	
 	public void onExit() {
@@ -264,10 +265,8 @@ public class GameController {
 	public void onShowLook() {
 		
 		// Set layout components
-		BorderPane layout2 = new BorderPane();
-		layout2.setPrefSize(900, 600);
-		layout2.setBackground(new Background (new BackgroundFill(
-				Color.GREEN,
+		layout.setBackground(new Background (new BackgroundFill(
+				Color.BLUE,
 				CornerRadii.EMPTY,
 				Insets.EMPTY
 				)));

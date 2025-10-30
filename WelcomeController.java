@@ -171,15 +171,8 @@ public class WelcomeController{
 
     public void onExit() {
         // close the app window
-        //layout.getScene().getWindow().hide();
 		layout.setCenter(stackPane1);
-
-    	
     }
 
-    /*public void onStartGame() {
-        // swap to the game scene registered by ViewFactory
-        sceneManager.show("game");
-    }*/
 	
 }
