@@ -189,7 +189,7 @@ public class WelcomeController{
     
     public void onExit() {
         // Layout reverts back to welcome screen 
-		layout.setCenter(stackPane1);
+		javafx.application.Platform.exit();
     }
 
 	

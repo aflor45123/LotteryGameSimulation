@@ -67,6 +67,8 @@ public class GameController {
     
     private TextArea resultArea;
     
+    private boolean newLookToggle = false;
+    
 	
 	public GameController(SceneManager sceneManager, KenoGame game) {
 		this.sceneManager = sceneManager;
@@ -331,38 +333,33 @@ public class GameController {
 	
 	public void onShowMatch() {
         // swap to the game scene registered by ViewFactory
-    	sceneManager.show("game");
+    	layout.setCenter(stackPane2);
     	
     }
 	
 	public void onExit() {
-		
-		 // Set welcome text and background shape
-     	Text welcomeText = new Text("Welcome to the Lottery Zone!");
-     	welcomeText.setFont(new Font(40));
-     	welcomeText.setFill(Color.ORANGE);
-     		
-     	Rectangle rect = new Rectangle(550, 80);
-     	rect.setFill(Color.BLACK);
-     	rect.setArcHeight(50);
-     	rect.setArcWidth(50);
-     	
-		StackPane stackPane3 = new StackPane();
-		stackPane3.getChildren().addAll(rect, welcomeText);
-		
-		// Set layout
-		layout.setCenter(stackPane3);
+		javafx.application.Platform.exit();
     }
 	
 	public void onShowLook() {
 		
 		// Set layout components
-
-		layout.setBackground(new Background (new BackgroundFill(
-		Color.BLUE,
-		CornerRadii.EMPTY,
-		Insets.EMPTY
-		)));
+		if (newLookToggle == false) {
+			layout.setBackground(new Background (new BackgroundFill(
+					Color.BLUE,
+					CornerRadii.EMPTY,
+					Insets.EMPTY
+					)));
+			newLookToggle = true;
+		}else {
+			layout.setBackground(new Background (new BackgroundFill(
+					Color.PURPLE,
+					CornerRadii.EMPTY,
+					Insets.EMPTY
+					)));
+			newLookToggle = false;
+		}
+		
 		
 	}
 	
