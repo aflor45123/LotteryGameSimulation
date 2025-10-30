@@ -28,7 +28,7 @@ import javafx.scene.paint.Color;
 
 public class GameController {
 	
-	private Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10;
+	private Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11;
 	private MenuBar menuBar;
 	private Menu menu;
 	private MenuItem menuItemRules;
@@ -126,9 +126,11 @@ public class GameController {
 		b10 = new Button("Start Draw!");
 		b10.setMinWidth(30);
 		
+		b11 = new Button("Reset");
+		b11.setMinWidth(10);
 		
 		drawQuestChoices = new HBox(10);
-		drawQuestChoices.getChildren().addAll(drawQuest, b6, b7, b8, b9, b10);
+		drawQuestChoices.getChildren().addAll(drawQuest, b6, b7, b8, b9, b10, b11);
 		drawQuestChoices.setAlignment(Pos.TOP_CENTER);
 		
 	
@@ -150,46 +152,27 @@ public class GameController {
         initiateGame();
         // Disable the card at startup
         
-		
-		
-        
-        
-        
-        
 		HBox centeredGrid = new HBox(10);
 		centeredGrid.getChildren().addAll(grid);
 		centeredGrid.setAlignment(Pos.CENTER);
 		
-		
-		
-		 // Header
-	 	Text ResultSign1 = new Text("Wins");
-	    ResultSign1.setFont(new Font(25));
-	    
-	    
-    	
-    	// Backdrop
-    	Rectangle rectResult1 = new Rectangle(200, 400);
-    	rectResult1.setFill(Color.ORANGE);
-    	rectResult1.setArcHeight(50);
-    	rectResult1.setArcWidth(50);
-    	
-    	
-    	StackPane LeftPane = new StackPane();
+		// Header
+
+		Text ResultSign1 = new Text("Wins");
+		ResultSign1.setFont(new Font(25));
+
+		// Backdrop
+		Rectangle rectResult1 = new Rectangle(200, 400);
+		rectResult1.setFill(Color.ORANGE);
+		rectResult1.setArcHeight(50);
+		rectResult1.setArcWidth(50);
+		StackPane LeftPane = new StackPane();
 		LeftPane.getChildren().addAll(rectResult1, ResultSign1);
 		StackPane.setAlignment(ResultSign1, Pos.CENTER_LEFT);
 		ResultSign1.setTranslateY(-180);
 		ResultSign1.setTranslateX(80);
 		StackPane.setAlignment(rectResult1, Pos.CENTER_LEFT);
 		rectResult1.setTranslateX(10);
-    	
-    	
-		
-		
-    	
-    	
-		
-		
 		
 		
 		// Vertically space out all components
@@ -197,15 +180,11 @@ public class GameController {
 		components.getChildren().addAll(spotQuestChoices, drawQuestChoices, centeredGrid);
 		
 		
-
+		
 		// Center all components
 		stackPane2 = new StackPane();
 		stackPane2.getChildren().addAll(rect, components);
 		stackPane2.setAlignment(Pos.TOP_CENTER);
-		
-		
-		
-		
 		
 		
 		// wire menu actions
@@ -214,7 +193,6 @@ public class GameController {
         menuItemMatch.setOnAction(e -> onShowMatch());
         menuItemExit.setOnAction(e -> onExit());
         menuItemLook.setOnAction(e -> onShowLook());
-
 		
 		// Set layout components
 		layout = new BorderPane();
@@ -231,6 +209,10 @@ public class GameController {
 	
 	private void initiateGame() {
 		disableCard();
+		b11.setDisable(true);
+		b1.setDisable(false); b2.setDisable(false); b3.setDisable(false); b4.setDisable(false);
+		b5.setDisable(false);
+	    b6.setDisable(false); b7.setDisable(false); b8.setDisable(false); b9.setDisable(false);
 
         // hook spot-choice buttons to enable the card once chosen
         b1.setOnAction(e -> { spotsChosen = 1; b1.setStyle("-fx-background-color: #FF0000; -fx-text-fill: white;"); disableSpotChoices();});
@@ -256,6 +238,7 @@ public class GameController {
                 nextDrawings();   // runs the next drawing until done
             }
         });
+        b11.setOnAction(e -> { endOfMatchReset();});
 		
 	}
 
@@ -269,7 +252,6 @@ public class GameController {
     	// Header
     	Text RulesSign = new Text("Game Rules");
     	RulesSign.setFont(new Font(25));
-    	
     	
     	// Description
     	Text DescriptRules = new Text(
@@ -361,11 +343,13 @@ public class GameController {
 	public void onShowLook() {
 		
 		// Set layout components
-		layout.setBackground(new Background (new BackgroundFill(
+
+				layout.setBackground(new Background (new BackgroundFill(
 				Color.BLUE,
 				CornerRadii.EMPTY,
 				Insets.EMPTY
 				)));
+		
 	}
 	
 	public void enableCard() {
@@ -550,94 +534,99 @@ public class GameController {
 	    int hits = 0;
 	    for (int n : drawn) if (selectedNumbers.contains(n)) hits++;
 	    
-	    
-	    
-	    
-	    // Header
-	 	Text ResultSign = new Text("Wins");
-	    ResultSign.setFont(new Font(25));
-	    
-	    
-	    // Description for wins
-    	DescriptResult = new Text("Drawing " + drawsCompleted + " finished. Hits: " + hits + "\n");
-    	DescriptResult.setFont(new Font(15));
-    	
-    	
-    	// Backdrop
-    	Rectangle rectResult = new Rectangle(200, 400);
-    	rectResult.setFill(Color.ORANGE);
-    	rectResult.setArcHeight(50);
-    	rectResult.setArcWidth(50);
-    	
-    	
-    	
-    	StackPane stackPane3 = new StackPane();
-		stackPane3.getChildren().addAll(rectResult, ResultSign, DescriptResult);
-		StackPane.setAlignment(ResultSign, Pos.CENTER_LEFT);
-		ResultSign.setTranslateY(-180);
-		ResultSign.setTranslateX(80);
-		StackPane.setAlignment(rectResult, Pos.CENTER_LEFT);
-		rectResult.setTranslateX(10);
-    	StackPane.setAlignment(DescriptResult, Pos.CENTER_LEFT);
-    	DescriptResult.setTranslateX(10);
-		layout.setLeft(stackPane3);
+	 // Header
+	 	 Text ResultSign = new Text("Wins");
+	 	 ResultSign.setFont(new Font(25));
+	 	    
+	 	    
+	 	    // Description for wins
+	     	DescriptResult = new Text("Drawing " + drawsCompleted + " finished. Hits: " + hits + "\n");
+	     	DescriptResult.setFont(new Font(15));
+	     	
+	     	
+	     	// Backdrop
+	     	Rectangle rectResult = new Rectangle(200, 400);
+	     	rectResult.setFill(Color.ORANGE);
+	     	rectResult.setArcHeight(50);
+	     	rectResult.setArcWidth(50);
+	     	
+	     	
+	     	
+	     	StackPane stackPane3 = new StackPane();
+	 		stackPane3.getChildren().addAll(rectResult, ResultSign, DescriptResult);
+	 		StackPane.setAlignment(ResultSign, Pos.CENTER_LEFT);
+	 		ResultSign.setTranslateY(-180);
+	 		ResultSign.setTranslateX(80);
+	 		StackPane.setAlignment(rectResult, Pos.CENTER_LEFT);
+	 		rectResult.setTranslateX(10);
+	     	StackPane.setAlignment(DescriptResult, Pos.CENTER_LEFT);
+	     	DescriptResult.setTranslateX(10);
+	 		layout.setLeft(stackPane3);	    
 
-    	
-
-		
-		
-	    //System.out.println("Drawing " + drawsCompleted + " finished. Hits: " + hits);
+	    System.out.println("Drawing " + drawsCompleted + " finished. Hits: " + hits);
 	    b10.setText("Next Draw!");
 	    b10.setDisable(false);
 	   
 	    if (drawsCompleted >= drawCountChosen) {
 	        // all done — allow new match setup
-	        endOfMatchReset();
+	        b11.setDisable(false);
 	    }
 	}
 	
-	private void endOfMatchReset() {
-	    drawingStarted = false;
-	    b10.setText("Start Draw!");
-
-	    // Re-enable choices so the player can set up a new game
-	    // (numbers remain shown; user can start fresh or exit)
-	    // If you want to clear everything immediately, also clear picks & styles.
-	    enableCard(); // The spec allows new card after all drawings complete
-	    // If you want to force re-choosing spots/draws, re-enable buttons here:
-	    // (example)
-	    b1.setDisable(false); b2.setDisable(false); b3.setDisable(false); b4.setDisable(false);
-	    b6.setDisable(false); b7.setDisable(false); b8.setDisable(false); b9.setDisable(false);
+	
+	private void enableSpotChoices() {
+	    b1.setDisable(false);
+	    b2.setDisable(false);
+	    b3.setDisable(false);
+	    b4.setDisable(false);
+	    b5.setDisable(false);
+	}
+	private void enableDrawChoices() {
+	    b6.setDisable(false);
+	    b7.setDisable(false);
+	    b8.setDisable(false);
+	    b9.setDisable(false);
+	}
+	
+	private void clearGridStylesAndDisable() {
+	    for (Button b : numberBtns) {
+	        if (b != null) {
+	            b.setStyle("");     // clear gold/green/red
+	        }
+	    }
+	    disableCard();               // grid disabled at fresh start
+	}
+	
+	private void clearSelections() {
+	    selectedNumbers.clear();
 	}
 	
 	
-	/*public void showResult() {
-		
-		// Header
-    	Text ResultSign = new Text("Wins");
-    	ResultSign.setFont(new Font(25));
-    	
-    	
-    	// Description
-    	Text DescriptResult = new Text(
-    			"Draw #: ");
-    	DescriptResult.setFont(new Font(15));
-    	    	
-    	
-		// Backdrop
-    	Rectangle rectResult = new Rectangle(200, 400);
-    	rectResult.setFill(Color.ORANGE);
-    	rectResult.setArcHeight(50);
-    	rectResult.setArcWidth(50);
-    	
-    	
-    	// Align Header, Description, and Backdrop
-    	StackPane stackPane2 = new StackPane();
-    	stackPane2.getChildren().addAll(rectResult, ResultSign, DescriptResult);
-    	StackPane.setAlignment(ResultSign, Pos.CENTER_LEFT);
-    	ResultSign.setTranslateY(-180);
-    	layout.setLeft(stackPane2);
-	}*/
+	private void endOfMatchReset() {
+		// game/drawing state
+	    drawingStarted   = false;
+	    drawsCompleted   = 0;
+	    spotsChosen      = 0;
+	    drawCountChosen  = 0;
+
+	    // UI: grid + picks
+	    clearSelections();
+	    clearGridStylesAndDisable();
+
+	    // UI: choice buttons & styles
+	    resetSpotButtons();   // clears red style on b1..b4
+	    resetDrawButtons();   // clears red style on b6..b9
+	    if (b5 != null) b5.setStyle("");  // Auto Select back to default
+
+	    enableSpotChoices();
+	    enableDrawChoices();
+
+	    // Start button label
+	    b10.setText("Start Draw!");
+
+	}
+	public void showResult() {
+	}
 	
 
 	
