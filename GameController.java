@@ -170,11 +170,13 @@ public class GameController {
 		resultArea.setEditable(false);          // user can't type
 		resultArea.setWrapText(true);
 		resultArea.setPrefSize(180, 350);       // size to fit your left pane
+		
 		resultArea.setStyle("-fx-control-inner-background: #FFFACD; -fx-font-size: 14;");
 
 		VBox resultBox = new VBox(10, ResultSign1, resultArea);
 		resultBox.setAlignment(Pos.TOP_CENTER);
 		resultBox.setPadding(new Insets(20));
+		resultBox.setTranslateY(60);
 
 		// Replace old StackPane LeftPane with this cleaner VBox
 		Rectangle rectResult1 = new Rectangle(200, 400);
@@ -630,6 +632,7 @@ public class GameController {
 	    // Start button label
 	    b10.setText("Start Draw!");
 	    b11.setDisable(true);
+	    resultArea.clear();
 
 	}
 	public void showResult() {
