@@ -511,7 +511,9 @@ public class GameController {
 	    for (int n : drawn) if (selectedNumbers.contains(n)) hits++;
 
 	    System.out.println("Drawing " + drawsCompleted + " finished. Hits: " + hits);
-
+	    b10.setText("Next Draw!");
+	    b10.setDisable(false);
+	   
 	    if (drawsCompleted >= drawCountChosen) {
 	        // all done — allow new match setup
 	        endOfMatchReset();
