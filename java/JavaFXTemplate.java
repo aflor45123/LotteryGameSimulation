@@ -33,10 +33,11 @@ public class JavaFXTemplate extends Application {
 		KenoGame game = new KenoGame();
 		
 		viewFactory.buildWelcome(sceneManager, game);
+		viewFactory.buildGame(sceneManager, game);
 		
 		
 		sceneManager.show("Welcome");
-		primaryStage.setTitle("JavaFX Template");
+		primaryStage.setTitle("The Lottery Zone");
 		primaryStage.show();
 		
 	}

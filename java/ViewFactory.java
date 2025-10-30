@@ -8,5 +8,10 @@ public class ViewFactory {
 		return c;
 	}
 	
+	public GameController buildGame(SceneManager sm, KenoGame game) {
+		GameController c = new GameController(sm, game);
+		sm.register("game", c.getRoot());
+		return c;
+	}
 	
 }
