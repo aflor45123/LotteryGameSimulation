@@ -27,7 +27,6 @@ public class WelcomeController{
 	private MenuItem menuItemOdds;
 	private MenuItem menuItemMatch;
     private MenuItem menuItemExit;
-    //private Button btnPlay;
     private BorderPane layout;
     private HBox centeredMenu;
     private Text welcomeText;
