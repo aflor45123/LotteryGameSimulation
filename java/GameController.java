@@ -169,9 +169,9 @@ public class GameController {
 
 		// Result area under "Wins"
 		resultArea = new TextArea();
-		resultArea.setEditable(false);          // user can't type
+		resultArea.setEditable(false);          
 		resultArea.setWrapText(true);
-		resultArea.setPrefSize(180, 350);       // size to fit your left pane
+		resultArea.setPrefSize(180, 350);   
 		
 		resultArea.setStyle("-fx-control-inner-background: #FFFACD; -fx-font-size: 14;");
 
@@ -262,8 +262,8 @@ public class GameController {
         return layout;
     }
 	
-    // --- public methods per UML ---
-	public void onShowRules() {
+	
+	private void onShowRules() {
 	       
     	// Header
     	Text RulesSign = new Text("Game Rules");
@@ -294,7 +294,7 @@ public class GameController {
     	layout.setCenter(stackPane2);
     }
 	
-	public void onShowOdds() {
+	private void onShowOdds() {
     	
     	// Header
     	Text RulesSign = new Text("Winning Odds");
@@ -331,17 +331,17 @@ public class GameController {
     	layout.setCenter(stackPane2);
     }
 	
-	public void onShowMatch() {
+	private void onShowMatch() {
         // swap to the game scene registered by ViewFactory
     	layout.setCenter(stackPane2);
     	
     }
 	
-	public void onExit() {
+	private void onExit() {
 		javafx.application.Platform.exit();
     }
 	
-	public void onShowLook() {
+	private void onShowLook() {
 		
 		// Set layout components
 		if (newLookToggle == false) {
@@ -363,11 +363,11 @@ public class GameController {
 		
 	}
 	
-	public void enableCard() {
+	private void enableCard() {
 		grid.setDisable(false);
 	}
 	
-	public void disableCard() {
+	private void disableCard() {
 		grid.setDisable(true);
 		
 	}
@@ -397,12 +397,8 @@ public class GameController {
 		b9.setDisable(true);
 	}
 	
-	public void updateStatus(/*text String*/) {
-		
-	}
 	
-	
-	public void selectNumber(int n) {
+	private void selectNumber(int n) {
 	    if (drawingStarted) {
 	        // Once drawings have started, do nothing.
 	        return;
@@ -441,7 +437,7 @@ public class GameController {
 	    //updateStatus("Selected: " + selectedNumbers.size() + "/" + spotsChosen);
 	}
 	
-	public void autoPick() {
+	private void autoPick() {
 		if (spotsChosen == 0) {
 	        // Player must choose how many spots first
 	        System.out.println("Please choose how many spots to play before using Auto Select.");
@@ -522,7 +518,7 @@ public class GameController {
 	    tl.play();
 	}
 	
-	public void startDrawings() {
+	private void startDrawings() {
 		
 	    drawingStarted = true;
 	    disableCard();        // lock the card
@@ -533,7 +529,7 @@ public class GameController {
 	    runOneDrawing();
 	}
 	
-	public void nextDrawings() {
+	private void nextDrawings() {
 		if (!drawingStarted) return;
 	    if (drawsCompleted >= drawCountChosen) {
 	        System.out.println("All drawings complete.");
@@ -631,8 +627,6 @@ public class GameController {
 	    b11.setDisable(true);
 	    resultArea.clear();
 
-	}
-	public void showResult() {
 	}
 	
 
