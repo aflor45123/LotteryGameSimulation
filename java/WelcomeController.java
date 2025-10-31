@@ -101,8 +101,8 @@ public class WelcomeController{
     }
 
     
-    // Show rules.
-    private void onShowRules() {
+    // --- public methods per UML ---
+    public void onShowRules() {
     	// Header
     	Text RulesSign = new Text("Game Rules");
     	RulesSign.setFont(new Font(25));
@@ -137,7 +137,7 @@ public class WelcomeController{
     }
 
     
-    private void onShowOdds() {
+    public void onShowOdds() {
     	
     	
     	// Header
@@ -179,15 +179,16 @@ public class WelcomeController{
     	layout.setCenter(stackPane2);
     }
     
-    // Show match
-    private void onShowMatch() {
+    
+    public void onShowMatch() {
         // Swap to the game scene registered by ViewFactory
     	sceneManager.show("game");
     	
     }
 
- // Exits the program
-    private void onExit() {
+    
+    public void onExit() {
+        // Layout reverts back to welcome screen 
 		javafx.application.Platform.exit();
     }
 

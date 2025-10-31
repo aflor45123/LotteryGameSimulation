@@ -39,7 +39,6 @@ public class JavaFXTemplate extends Application {
 		sceneManager.show("Welcome");
 		primaryStage.setTitle("The Lottery Zone");
 		primaryStage.show();
-		
 	}
 
 }

@@ -149,7 +149,7 @@ public class GameController {
                 Button b0 = new Button(String.valueOf(n));
                 b0.setPrefSize(50, 50);
                 b0.setFont(new Font(20));
-                b0.setOnAction(e -> selectNumber(n));  
+                b0.setOnAction(e -> selectNumber(n));  // your handler
                 numberBtns[n - 1] = b0;
                 grid.add(b0, c, r);
                 counter++;
@@ -222,8 +222,6 @@ public class GameController {
 				)));
 	}
 	
-	
-	//Initiates games from the beginning 
 	private void initiateGame() {
 		disableCard();
 		b11.setDisable(true);
@@ -332,13 +330,13 @@ public class GameController {
   
     	layout.setCenter(stackPane2);
     }
-	//Shows match screen
+	
 	private void onShowMatch() {
         // swap to the game scene registered by ViewFactory
     	layout.setCenter(stackPane2);
     	
     }
-	//Exits the program
+	
 	private void onExit() {
 		javafx.application.Platform.exit();
     }
@@ -364,11 +362,11 @@ public class GameController {
 		
 		
 	}
-	//Enables card
+	
 	private void enableCard() {
 		grid.setDisable(false);
 	}
-	//Disables Card
+	
 	private void disableCard() {
 		grid.setDisable(true);
 		
@@ -424,7 +422,7 @@ public class GameController {
 	        // add if we haven't hit the limit
 	    	
 	        if (selectedNumbers.size() >= spotsChosen) {
-	           
+	            //updateStatus("You can only select " + spotsChosen + " numbers.");
 	            return;
 	        }
 	        selectedNumbers.add(n);
@@ -436,7 +434,7 @@ public class GameController {
     		b10.setDisable(true);
     	}
 
-	   
+	    //updateStatus("Selected: " + selectedNumbers.size() + "/" + spotsChosen);
 	}
 	
 	private void autoPick() {
@@ -486,7 +484,11 @@ public class GameController {
 	    }
 	}
 	
-	//Reveal numbers one by one with delay.
+	/**
+	 * Reveal numbers one-by-one with a pause.
+	 * Non-picked → red; picked → green.
+	 * When finished, calls onDrawingFinished().
+	 */
 	private void revealSequence(java.util.List<Integer> sequence) {
 	    // duration between numbers
 	    javafx.util.Duration step = javafx.util.Duration.millis(600);
